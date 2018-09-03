@@ -4,6 +4,7 @@ A simple bash script to allow easy switching of Kubernetes context through promp
 
 # Install
 **cp k8s-context /usr/local/bin/**
+<br />
 **chmod +x /usr/local/bin/k8s-context**
 
 # Notes
