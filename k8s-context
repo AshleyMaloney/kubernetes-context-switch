@@ -1,0 +1,33 @@
+#!/bin/bash
+# @auth Ashley Maloney
+# @desc Provide prompt to switch between Kubernetes context
+# @date 31/08/2018
+
+# Fetch a list of available context
+ARRAY=($(kubectl config get-contexts --no-headers=true -o=name))
+
+# Provide the list of context avaiable
+for index in "${!ARRAY[@]}"
+do
+    echo "$index) ${ARRAY[index]}"
+done
+
+echo
+
+# Count total index
+COUNT="$(expr ${#ARRAY[@]} - 1)"
+
+# Fetch user input
+read -p "Select a numner 0 - $COUNT: " userinput
+
+echo
+
+# Verify user input is within the range provided
+if [[ $userinput -lt 0 || $userinput -gt $COUNT ]]; then
+    echo "ERROR: Invalid context selection"
+
+else
+    # Switch to selected context
+    kubectl config use-context ${ARRAY[$userinput]}
+
+fi
